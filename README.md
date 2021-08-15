@@ -13,7 +13,7 @@ docker pull locnx1105/backend-test
 ```
 
 ## Usage
-###Variable :
+Variable :
 1. email_template: your email template path.
 2. customer_csv: your customer csv path.
 3. output_email : output email folder path.
