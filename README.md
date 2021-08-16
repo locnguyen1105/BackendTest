@@ -2,7 +2,6 @@
 
 # This is backend test - Nguyen Xuan Loc
 
-Foobar is a Python library for dealing with word pluralization.
 
 ## Installation
 
