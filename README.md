@@ -16,8 +16,10 @@ docker pull locnx1105/backend-test:version1.0
 Variable :
 1. email_template_path (json): your email template path.
 2. customer_csv_path (csv): your customer csv path.
-3. output_email_directory (directory) : output email folder path.
+3. output_email_directory (directory) : output email directory path. 
 4. errors_csv_path (csv) : your error csv path.
+5. 
+//please make sure your directory/file exist
 
 ```sh
 # run 'docker image'
