@@ -13,7 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
-    private List<Customer> listTest,listError;
+    private List<Customer> listTest;
+    private List<String> listError;
     private EmailTemplate emailTemplateTest;
     List<List<String>> dataCustomerTest;
 
@@ -35,7 +36,7 @@ class MainTest {
         listTest.add(new Customer("Mrs", "Mhung", "Nguyen", ""));
         listTest.add(new Customer("", "", "", ""));
 
-        listError.add(new Customer("Mrs", "Manh", "Nguyen", ""));
+        listError.add(("Mrs,Manh,Nguyen,"));
 
 
         emailTemplateTest = new EmailTemplate("The Marketing Team<marketing@example.com",
@@ -45,11 +46,9 @@ class MainTest {
     @Test
     void testWriteOutputEmail() {
 
-        Main.writeOutputEmail(emailTemplateTest, listTest, "D:\\BETEST", "D:\\BETEST\\errors.csv");
-        List<List<String>> dataCustomer = Main.readFileCSV("D:\\BETEST\\errors.csv");
-        EmailTemplate emailTemplateTest = Main.readFileEmailTemplate("D:\\BETEST\\nhunguyen.json");
+        Main.writeOutputEmail(emailTemplateTest, listTest, "D:\\BETEST");
 
-        assertEquals(4,dataCustomer.size());
+        EmailTemplate emailTemplateTest = Main.readFileEmailTemplate("D:\\BETEST\\nhunguyen.json");
 
         Assertions.assertEquals("nhunguyen@gmail.com",emailTemplateTest.getTo());
 
@@ -57,10 +56,10 @@ class MainTest {
 
     @Test
     void testWriteErrorsOutput() {
-        Main.writeErrorsOutput(listError,"D:\\BETEST\\errors.csv");
-        List<List<String>> dataCustomer = Main.readFileCSV("D:\\BETEST\\errors.csv");
+        Main.writeErrorsOutput("D:\\BETEST\\errors.csv",listError);
+        List<List<String>> dataCustomer = Main.readFileCSV("D:\\BETEST\\errors.csv",listError);
 
-        assertEquals(2,dataCustomer.size());
+        assertEquals(1,dataCustomer.size());
     }
 
     @Test
@@ -75,21 +74,32 @@ class MainTest {
     }
 
     @Test
-    void testGetRecordFromLine() {
+    void testGetRecordFromLineWithZeroSize() {
         String lineTest = "Loc,Nguyen,Phuoc";
 
-        List<String> listString = Main.getRecordFromLine(lineTest);
+        List<String> listString = Main.getRecordFromLine(lineTest,listError);
 
+        assertEquals(0,listString.size());
+
+    }
+
+    @Test
+    void testGetRecordFromLineWithExistLine() {
+        String lineTest = "Loc,Nguyen,Phuoc,loc@gmail.com";
+
+        List<String> listString = Main.getRecordFromLine(lineTest,listError);
+
+        assertEquals(4,listString.size());
         assertEquals("Loc",listString.get(0));
-        assertEquals("Nguyen",listString.get(1));
 
     }
 
     @Test
     void testReadFileCSVWithData() {
-        List<List<String>> testCSV = Main.readFileCSV("D:\\BETEST\\errors.csv");
+        List<List<String>> testCSV = Main.readFileCSV("D:\\BETEST\\errors.csv",listError);
 
-        assertEquals(2,testCSV.size());
+        assertEquals(1,testCSV.size());
+        assertEquals(2,listError.size());
     }
 
     @Test
