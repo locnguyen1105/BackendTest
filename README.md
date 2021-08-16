@@ -5,7 +5,7 @@
 
 ## Installation
 
-Using docker.
+Pull docker image
 
 ```bash
 docker pull locnx1105/backend-test:version1.0
