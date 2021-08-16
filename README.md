@@ -14,26 +14,28 @@ docker pull locnx1105/backend-test
 
 ## Usage
 Variable :
-1. email_template: your email template path.
-2. customer_csv: your customer csv path.
-3. output_email : output email folder path.
-4. errors_csv : your error csv path.
+1. email_template_path (json): your email template path.
+2. customer_csv_path (csv): your customer csv path.
+3. output_email_directory (directory) : output email folder path.
+4. errors_csv_path (csv) : your error csv path.
 
 ```python
-# build 'docker image'
-docker build .
+# run 'docker image'
+docker run -v {email_template}:/email_template.json -v {customer_csv}:/customers.csv -v {output_email_directory}:/Output -v {errors_csv_path}:/errors.csv -ti backend-test
 
-# returns 'geese'
-foobar.pluralize('goose')
+# How to Enter input 
+Enter your email template : /email_template.json
+Enter your customer file path : /customers.csv
+Output email path : /Output
+Output errors csv path : /errors.csv
 
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+
 ```
+## Result
+Check {output_email_directory} and {errors_csv_path}.
 
 ## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
+Pull requests are welcome. This is backend test.
 
 ## License
 [Loc](locnx1105@gmail.com)
