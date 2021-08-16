@@ -19,9 +19,9 @@ Variable :
 3. output_email_directory (directory) : output email folder path.
 4. errors_csv_path (csv) : your error csv path.
 
-```python
+```sh
 # run 'docker image'
-docker run -v {email_template}:/email_template.json -v {customer_csv}:/customers.csv -v {output_email_directory}:/Output -v {errors_csv_path}:/errors.csv -ti backend-test
+docker run -v ${email_template_path}:/email_template.json -v ${customer_csv_path}:/customers.csv -v ${output_email_directory}:/Output -v ${errors_csv_path}:/errors.csv -ti locnx1105/backend-test:version1.0
 
 # How to Enter input 
 Enter your email template : /email_template.json
@@ -32,6 +32,12 @@ Output errors csv path : /errors.csv
 
 ```
 ## Result
+Get {number} lines valid from customers csv 
+Get {number} lines errors from customers csv 
+Write Output !!
+Done !!
+
+## Final
 Check {output_email_directory} and {errors_csv_path}.
 
 ## Contributing
