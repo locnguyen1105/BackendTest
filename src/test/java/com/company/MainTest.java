@@ -101,16 +101,28 @@ class MainTest {
 
     @Test
     void testInvalidPathWithTrue() {
-        assertTrue(Main.isValidPath("D:\\"));
-        assertTrue(Main.isValidPath("D:\\BETEST"));
-        assertTrue(Main.isValidPath("D:/"));
+        assertTrue(Main.isValidPathFile("C:\\Users\\Loc\\Downloads\\BE_Test\\src\\main\\java\\com\\company\\customers.csv"));
     }
 
     @Test
     void testInvalidPathWithFalse() {
-        assertFalse(Main.isValidPath("D"));
-        assertFalse(Main.isValidPath("basT"));
-        assertFalse(Main.isValidPath("224"));
+        assertFalse(Main.isValidPathFile("D"));
+        assertFalse(Main.isValidPathFile("basT"));
+        assertFalse(Main.isValidPathFile("224"));
+    }
+
+    @Test
+    void testInvalidPathFolderWithTrue() {
+        assertTrue(Main.isValidPathDirectory("C:/Users"));
+        assertTrue(Main.isValidPathDirectory("D:/"));
+        assertTrue(Main.isValidPathDirectory("E:/"));
+    }
+
+    @Test
+    void testInvalidPathFolderWithFalse() {
+        assertFalse(Main.isValidPathDirectory("D"));
+        assertFalse(Main.isValidPathDirectory("224"));
+        assertFalse(Main.isValidPathDirectory("C:\\Users\\Loc\\Downloads\\BE_Test\\src\\main\\java\\com\\company\\customers.csv"));
     }
 
 }

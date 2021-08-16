@@ -22,18 +22,20 @@ public class Main {
     private static final String FIRST_NAME_REPLACE = "{{FIRST_NAME}}";
     private static final String LAST_NAME_REPLACE = "{{LAST_NAME}}";
     private static final String TODAY_REPLACE = "{{TODAY}}";
+    private static final String CSV_EXTENTION = "csv";
+    private static final String JSON_EXTENTION = "json";
 
     public static void main(String[] args) {
 
         String emailTemplate = null, customerFilePath = null, outputEmailPath = null, outputErrorPath = null;
         System.out.print("Enter your email template : ");
-        emailTemplate = inputPath();
+        emailTemplate = inputPathFile(JSON_EXTENTION);
         System.out.print("Enter your customer file path : ");
-        customerFilePath = inputPath();
+        customerFilePath = inputPathFile(CSV_EXTENTION);
         System.out.print("Output email path : ");
-        outputEmailPath = inputPath();
+        outputEmailPath = inputPathDirectory();
         System.out.print("Output errors csv path : ");
-        outputErrorPath = inputPath();
+        outputErrorPath = inputPathFile(CSV_EXTENTION);
 
 
         List<List<String>> dataCustomer = readFileCSV(customerFilePath);
@@ -46,19 +48,42 @@ public class Main {
 
     }
 
-    public static String inputPath(){
+    public static String inputPathFile(String extention){
         Scanner input = new Scanner(System.in);
         String path = input.nextLine();
 
-        while(!isValidPath(path)) {
-            System.err.print("ERROR Please enter a valid path : ");
+        while(!isValidPathFile(path) || !getFileExtension(path).equals(extention)) {
+            System.err.print("ERROR Please enter a valid path file with extention ."+extention+" : ");
             path = input.nextLine();
         }
         return path;
     }
 
-    public static boolean isValidPath(String path) {
-        return Files.exists(Paths.get(path));
+    public static String getFileExtension(String filePath) {
+        int lastIndexOf = filePath.lastIndexOf(".");
+        if (lastIndexOf == -1) {
+            return ""; // empty extension
+        }
+        return filePath.substring(lastIndexOf + 1);
+    }
+
+    public static String inputPathDirectory(){
+        Scanner input = new Scanner(System.in);
+        String path = input.nextLine();
+
+        while(!isValidPathDirectory(path)) {
+            System.err.print("ERROR Please enter a valid path directory : ");
+            path = input.nextLine();
+        }
+        return path;
+    }
+
+    public static boolean isValidPathFile(String path) {
+        return Files.isRegularFile(Paths.get(path));
+    }
+
+    public static boolean isValidPathDirectory(String path) {
+        return Files.isDirectory(Paths.get(path));
     }
 
     public static void writeOutputEmail(EmailTemplate email, List<Customer> listCustomer,String outputEmailPath,String outputErrorPath){
