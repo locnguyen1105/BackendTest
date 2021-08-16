@@ -9,7 +9,7 @@ Foobar is a Python library for dealing with word pluralization.
 Using docker.
 
 ```bash
-docker pull locnx1105/backend-test
+docker pull locnx1105/backend-test:version1.0
 ```
 
 ## Usage
